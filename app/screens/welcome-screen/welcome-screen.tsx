@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { View, Image, ViewStyle, TextStyle, ImageStyle, SafeAreaView } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { observer } from "mobx-react-lite"
@@ -75,30 +75,78 @@ const FOOTER_CONTENT: ViewStyle = {
   paddingHorizontal: spacing[4],
 }
 
+const SUCCESS: TextStyle = {
+  fontSize: 18,
+  fontWeight: "bold",
+  color: "green",
+}
+
+const FAILED: TextStyle = {
+  fontSize: 18,
+  fontWeight: "bold",
+  color: "red",
+}
+
+const STATUS: TextStyle = {
+  fontSize: 18,
+  fontWeight: "bold",
+  textAlign: "center",
+}
+
 export const WelcomeScreen = observer(function WelcomeScreen() {
   const navigation = useNavigation()
+  const [validationMsg, setValidationMsg] = useState("Waiting")
+  const [validationStatus, setValidationStatus] = useState("")
   const nextScreen = () => navigation.navigate("demo")
+
+  const URL = "https://busdue.com/"
+
+  const onConnectPress = () => {
+    fetch(URL)
+      .then((res) => {
+        console.log("**************")
+        console.log(res)
+        console.log("**************")
+        setValidationMsg("Valid certificate, connected.")
+        setValidationStatus("success")
+      })
+      .catch(() => {
+        setValidationMsg("Certificate does not match, connection refused")
+        setValidationStatus("failed")
+      })
+  }
 
   return (
     <View style={FULL}>
       <Wallpaper />
       <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
-        <Header headerTx="welcomeScreen.poweredBy" style={HEADER} titleStyle={HEADER_TITLE} />
+        {/* <Header headerTx="welcomeScreen.poweredBy" style={HEADER} titleStyle={HEADER_TITLE} /> */}
         <Text style={TITLE_WRAPPER}>
-          <Text style={TITLE} text="Your new app, " />
-          <Text style={ALMOST} text="almost" />
-          <Text style={TITLE} text="!" />
+          <Text style={TITLE} text="Certificate status" />
+          {/* <Text style={ALMOST} text="almost" />
+          <Text style={TITLE} text="!" /> */}
         </Text>
-        <Text style={TITLE} preset="header" tx="welcomeScreen.readyForLaunch" />
-        <Image source={bowserLogo} style={BOWSER} />
-        <Text style={CONTENT}>
-          This probably isn't what your app is going to look like. Unless your designer handed you
-          this screen and, in that case, congrats! You're ready to ship.
-        </Text>
-        <Text style={CONTENT}>
-          For everyone else, this is where you'll see a live preview of your fully functioning app
-          using Ignite.
-        </Text>
+        {/* <Text style={TITLE} preset="header" tx="welcomeScreen.readyForLaunch" /> */}
+        {/* <Image source={bowserLogo} style={BOWSER} /> */}
+        <View style={{ marginTop: 35 }}>
+          {/* <Text style={CONTENT}>
+            This probably isn't what your app is going to look like. Unless your designer handed you
+            this screen and, in that case, congrats! You're ready to ship.
+          </Text>
+          <Text style={CONTENT}>
+            For everyone else, this is where you'll see a live preview of your fully functioning app
+            using Ignite.
+          </Text> */}
+          <Text
+            style={[
+              STATUS,
+              validationStatus === "success" && SUCCESS,
+              validationStatus === "failed" && FAILED,
+            ]}
+          >
+            {validationMsg}
+          </Text>
+        </View>
       </Screen>
       <SafeAreaView style={FOOTER}>
         <View style={FOOTER_CONTENT}>
@@ -106,7 +154,7 @@ export const WelcomeScreen = observer(function WelcomeScreen() {
             style={CONTINUE}
             textStyle={CONTINUE_TEXT}
             tx="welcomeScreen.continue"
-            onPress={nextScreen}
+            onPress={onConnectPress}
           />
         </View>
       </SafeAreaView>

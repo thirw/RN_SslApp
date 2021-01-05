@@ -312,6 +312,7 @@ PODS:
     - React-Core
   - RNScreens (2.16.1):
     - React-Core
+  - TrustKit (1.6.5)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -371,6 +372,7 @@ DEPENDENCIES:
   - RNKeychain (from `../node_modules/react-native-keychain`)
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - TrustKit (= 1.6.5)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -386,6 +388,7 @@ SPEC REPOS:
     - Flipper-RSocket
     - FlipperKit
     - OpenSSL-Universal
+    - TrustKit
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -503,9 +506,10 @@ SPEC CHECKSUMS:
   RNKeychain: db956c02a018f7dd3a0ea8a6cf3087bc1894bf2b
   RNLocalize: 7c7aeda16c01db7a0918981c14875c0a53be9b79
   RNScreens: 45c457af3d2ee9e08fc01e70da87e653d46b1198
+  TrustKit: 073855e3adecd317417bda4ac9e9ac54a2e3b9f2
   Yoga: 7740b94929bbacbddda59bf115b5317e9a161598
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 39ab018f6b720695a3d401a58df551a13115c517
+PODFILE CHECKSUM: bdc31457d245320691a10762f1ffa0f268c53013
 
 COCOAPODS: 1.10.0
